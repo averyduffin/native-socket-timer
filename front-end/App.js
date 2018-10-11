@@ -1,11 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { subscribeToTimer } from './src/api';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timestamp: 'no timestamp yet'
+    };
+    subscribeToTimer((err, timestamp) => {
+      this.setState({ timestamp }) 
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Text>This is the timer value: {this.state.timestamp}</Text>
       </View>
     );
   }
